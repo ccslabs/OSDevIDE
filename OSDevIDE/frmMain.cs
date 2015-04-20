@@ -31,7 +31,22 @@ namespace OSDevIDE
             
             //TODO: Change the Hard coded layout.xml location
             if (File.Exists("C:\\layout.xml"))
-                dockPanel.LoadFromXml("C:\\layout.xml", m_deserializeDockContent);           
+                dockPanel.LoadFromXml("C:\\layout.xml", m_deserializeDockContent);
+
+
+            Task tStartUp = new Task(() => Start());
+            tStartUp.Start();
+        }
+
+        private void Start()
+        {
+            frmMainLog("Starting Up");
+        }
+
+        //TODO: Clean this up
+        private void frmMainLog(string Message, OSDevIDE.Classes.Enumerations.LoggingEnumerations.LogEventTypes le = Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information)
+        {
+            outputForm.OutputLog(le, Message);
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)

@@ -10,6 +10,7 @@ namespace OSDevIDE.Classes.Enumerations
     {
         internal enum LogEventTypes
         {
+            Information,
             Success,
             Warning,
             Failure,

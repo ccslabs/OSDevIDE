@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -42,9 +42,11 @@ namespace OSDevIDE.Forms.Dockable
         }
 
 
-        internal void Log(LoggingEnumerations.LogEventTypes logEnum, string Message)
+        internal void OutputLog(LoggingEnumerations.LogEventTypes logEnum, string Message)
         {
-            string callingMethod = GetCallerMemberName(); // Display if in Debug Mode - which Method called me
+            StackTrace stackTrace = new StackTrace();
+            string callingMethod = stackTrace.GetFrame(1).GetMethod().Name; // Display if in Debug Mode - which Method called me
+          
             switch (logEnum)
             {
                 case LoggingEnumerations.LogEventTypes.Success:
@@ -86,9 +88,5 @@ namespace OSDevIDE.Forms.Dockable
             }
         }
 
-        private static string GetCallerMemberName([CallerMemberName]string caller = null)
-        {
-            return caller;
-        }
     }
 }
