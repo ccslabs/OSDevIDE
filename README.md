@@ -7,3 +7,7 @@ For the Windows via .Net and Linux via Mono this application will make Operating
 If you would like to join the project then fork the project and add your commits to the resolve bugs or to add new features.
 We will list here the features that are being worked on by the core team and those who wish to add their contributions to so that
 there is limited or no duplication.
+
+#Current Activities:
+1) Development of the Logging Window
+2) Development of the Solution Explorer
