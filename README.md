@@ -11,3 +11,6 @@ there is limited or no duplication.
 #Current Activities:
 1. Development of the Logging Window
 2. Development of the Solution Explorer
+
+####Useful Links
+[Developer's Style Guide] (https://docs.google.com/document/d/1veMAEfGf42xQVFC5PR0suC5F1FEw-C8ej-F7qQJXPgI/edit?usp=sharing)
