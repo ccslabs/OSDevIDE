@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Core\CoreGets.cs" />
+    <Compile Include="Classes\Core\CoreSetup.cs" />
     <Compile Include="Classes\Enumerations\LoggingEnumerations.cs" />
     <Compile Include="Forms\Dockable\frmOutput.cs">
       <SubType>Form</SubType>

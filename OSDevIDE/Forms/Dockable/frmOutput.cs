@@ -1,4 +1,5 @@
 ﻿
+using FastColoredTextBoxNS;
 using OSDevIDE.Classes.Core;
 using OSDevIDE.Classes.Enumerations;
 using System;
@@ -20,8 +21,13 @@ namespace OSDevIDE.Forms.Dockable
     {
 
         CoreGets coreGets = new CoreGets();
-        delegate void SetFCTBMessageCallBack(string text);
+        delegate void SetFCTBMessageCallBack(string text, Style style);
 
+
+        TextStyle infoStyle = new TextStyle(Brushes.CornflowerBlue, null, FontStyle.Regular);
+        TextStyle warningStyle = new TextStyle(Brushes.Yellow, null, FontStyle.Regular);
+        TextStyle errorStyle = new TextStyle(Brushes.PaleVioletRed, null, FontStyle.Regular);
+        TextStyle successStyle = new TextStyle(Brushes.Green, null, FontStyle.Regular);
 
         //internal delegate void LogEventHandlerHandler(LogEventTypes EventType, string status);
         //internal event LogEventHandlerHandler LogEvent;
@@ -29,7 +35,7 @@ namespace OSDevIDE.Forms.Dockable
         public frmOutput()
         {
             InitializeComponent();
-            fctb.ForeColor = Color.CornflowerBlue;
+            
             Task tStart = new Task(() => Start());
             tStart.Start();
 
@@ -38,41 +44,42 @@ namespace OSDevIDE.Forms.Dockable
 
         private void Start()
         {
-            SetFCTBMessage("OS Development IDE Version: " + coreGets.GetExecutableVersion());
+            SetFCTBMessage("OS Development IDE Version: " + coreGets.GetExecutableVersion(), infoStyle);
         }
 
 
         internal void OutputLog(LoggingEnumerations.LogEventTypes logEnum, string Message)
         {
+            Style style = infoStyle;
             StackTrace stackTrace = new StackTrace();
             string callingMethod = stackTrace.GetFrame(1).GetMethod().Name; // Display if in Debug Mode - which Method called me
-          
+
             switch (logEnum)
             {
                 case LoggingEnumerations.LogEventTypes.Success:
-                    fctb.ForeColor = Color.Green;
+                    style = successStyle;
                     break;
                 case LoggingEnumerations.LogEventTypes.Warning:
-                    fctb.ForeColor = Color.Orange;
+                    style = warningStyle;
                     break;
                 case LoggingEnumerations.LogEventTypes.Failure:
-                    fctb.ForeColor = Color.Red;
+                    style = errorStyle;
                     break;
                 default:
-                    fctb.ForeColor = Color.CornflowerBlue;
+                    style = infoStyle;
                     break;
             }
 
 #if DEBUG
-            Message = "[" + callingMethod + "]\t" + Message;
+            Message = "[" + callingMethod + "]" + Message;
 #endif
             Message = DateTime.Now + "\t" + Message;
-            SetFCTBMessage(Message);
+            SetFCTBMessage(Message, style);
 
 
         }
 
-        private void SetFCTBMessage(string Message)
+        private void SetFCTBMessage(string Message, Style style)
         {
             // InvokeRequired required compares the thread ID of the
             // calling thread to the thread ID of the creating thread.
@@ -80,11 +87,20 @@ namespace OSDevIDE.Forms.Dockable
             if (this.fctb.InvokeRequired)
             {
                 SetFCTBMessageCallBack d = new SetFCTBMessageCallBack(SetFCTBMessage);
-                this.Invoke(d, new object[] { Message });
+                this.Invoke(d, new object[] { Message, style });
             }
             else
             {
-                this.fctb.AppendText(Message + Environment.NewLine);
+                fctb.BeginUpdate();
+                fctb.Selection.BeginUpdate();
+
+                //add text with predefined style
+                fctb.InsertText(Message + Environment.NewLine, style);
+
+                fctb.GoEnd();//scroll to end of the textMessage
+                //
+                fctb.Selection.EndUpdate();
+                fctb.EndUpdate();
             }
         }
 
