@@ -4,9 +4,8 @@ The Operating System Development IDE
 This project is dedicated to producing an Open Source IDE for the sole purpose of Developing Operating Systems. 
 For Windows via .Net and Linux via Mono this application will make Operating System Development an enjoyable persuit.
 
-If you would like to join the project then fork the project and add your commits to the resolve bugs or to add new features.
-We will list here the features that are being worked on by the core team and those who wish to add their contributions to so that
-there is limited or no duplication.
+If you would like to join the project then fork the project and add your commits to resolve bugs or to add new features.
+We will list here the features that are being worked on by the core team. Those who wish to add their contributions should avoid core functionality, unless it is a big fix, and examine the Road Map for features that are yet to be completed.
 
 #Current Activities:
 1. Development of the Logging Window (Done)
