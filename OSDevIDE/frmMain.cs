@@ -15,8 +15,7 @@ namespace OSDevIDE
 {
     public partial class frmMain : Form
     {
-        DockPanel dockPanel = new DockPanel();
-
+      
         private bool m_bSaveLayout = true;
         private DeserializeDockContent m_deserializeDockContent;
 
@@ -28,11 +27,7 @@ namespace OSDevIDE
         public frmMain()
         {
             InitializeComponent();
-            dockPanel.Dock = DockStyle.Fill;
-            dockPanel.ShowDocumentIcon = true;
-            dockPanel.BackColor = Color.DarkGray;
-
-            this.Controls.Add(dockPanel);
+           
 
             m_deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
             if (File.Exists("C:\\layout.xml"))
@@ -67,6 +62,52 @@ namespace OSDevIDE
                 return null;
             }
         }
+
+        #region Menu -> Windows -> Standard
+        private void startupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (startupToolStripMenuItem.Checked)
+            {
+                startupToolStripMenuItem.Checked = false;
+                startupForm.Hide();
+            }
+            else
+            {
+                startupForm.Show(dockPanel, DockState.Document);
+                startupToolStripMenuItem.Checked = true;
+            }
+        }
+
+        private void projectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (projectToolStripMenuItem.Checked)
+            {
+                logginToolStripMenuItem.Checked = false;
+                projectForm.Hide();
+            }
+            else
+            {
+                projectForm.Show(dockPanel, DockState.DockRight);
+                projectToolStripMenuItem.Checked = true;
+            }
+
+        }
+
+        private void logginToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (logginToolStripMenuItem.Checked)
+            {
+                logginToolStripMenuItem.Checked = false;
+                outputForm.Hide();
+            }
+            else
+            {
+                outputForm.Show(dockPanel, DockState.DockBottom);
+                logginToolStripMenuItem.Checked = true;
+            }
+        }
+        #endregion
+        
 
     }
 }
