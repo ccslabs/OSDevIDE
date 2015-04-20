@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using OSDevIDE.Classes.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,27 +9,33 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
 using WeifenLuo.WinFormsUI.Docking;
-using FastColoredTextBoxNS;
+
 
 namespace OSDevIDE.Forms.Dockable
 {
     public partial class frmOutput : DockContent
     {
-        FastColoredTextBox fctb = new FastColoredTextBox();
+
+        CoreGets coreGets = new CoreGets();
+
+       
+
+        //internal delegate void LogEventHandlerHandler(LogEventTypes EventType, string status);
+        //internal event LogEventHandlerHandler LogEvent;
 
         public frmOutput()
         {
             InitializeComponent();
-            fctb.Dock = DockStyle.Fill;
-            fctb.ReadOnly = true;
-            fctb.BorderStyle = BorderStyle.None;
-            fctb.BackColor = Color.Black;
-            fctb.CaretVisible = false;
-            fctb.WordWrap = true;
-            panelContainer.Controls.Add(fctb);
+            Task tStart = new Task(() => Start());
+            tStart.Start();
 
+        }
+
+
+        private void Start()
+        {
+            fctb.AppendText("OS Development IDE Version: " + coreGets.GetExecutableVersion());
         }
     }
 }

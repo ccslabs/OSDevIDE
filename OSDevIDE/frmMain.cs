@@ -26,14 +26,12 @@ namespace OSDevIDE
 
         public frmMain()
         {
-            InitializeComponent();
-           
-
+            InitializeComponent();          
             m_deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
+            
+            //TODO: Change the Hard coded layout.xml location
             if (File.Exists("C:\\layout.xml"))
-                dockPanel.LoadFromXml("C:\\layout.xml", m_deserializeDockContent);
-           
-
+                dockPanel.LoadFromXml("C:\\layout.xml", m_deserializeDockContent);           
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
