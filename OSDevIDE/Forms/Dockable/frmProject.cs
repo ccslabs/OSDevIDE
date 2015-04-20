@@ -12,9 +12,9 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace OSDevIDE.Forms.Dockable
 {
-    public partial class frmSolutionExplorer : DockContent
+    public partial class frmProject : DockContent
     {
-        public frmSolutionExplorer()
+        public frmProject()
         {
             InitializeComponent();
         }

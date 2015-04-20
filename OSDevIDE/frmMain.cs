@@ -21,7 +21,7 @@ namespace OSDevIDE
         private DeserializeDockContent m_deserializeDockContent;
 
       
-        frmSolutionExplorer solutionExplorerForm = new frmSolutionExplorer();
+        frmProject projectForm = new frmProject();
         frmOutput outputForm = new frmOutput();
         frmStartup startupForm = new frmStartup();
 
@@ -30,7 +30,8 @@ namespace OSDevIDE
             InitializeComponent();
             dockPanel.Dock = DockStyle.Fill;
             dockPanel.ShowDocumentIcon = true;
-            dockPanel.BackColor = Color.AliceBlue;
+            dockPanel.BackColor = Color.DarkGray;
+
             this.Controls.Add(dockPanel);
 
             m_deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
@@ -50,8 +51,8 @@ namespace OSDevIDE
 
         private IDockContent GetContentFromPersistString(string persistString)
         {
-            if (persistString == typeof(frmSolutionExplorer).ToString())
-                return solutionExplorerForm;
+            if (persistString == typeof(frmProject).ToString())
+                return projectForm;
             else if (persistString == typeof(frmOutput).ToString())
                 return outputForm;
             else if (persistString == typeof(frmStartup).ToString())
@@ -59,7 +60,7 @@ namespace OSDevIDE
            
             else
             {
-                solutionExplorerForm.Show(dockPanel, DockState.DockRight);
+                projectForm.Show(dockPanel, DockState.DockRight);
                 outputForm.Show(dockPanel, DockState.DockBottom);
                 startupForm.Show(dockPanel, DockState.Document);
             
