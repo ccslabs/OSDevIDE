@@ -10,4 +10,5 @@ there is limited or no duplication.
 
 #Current Activities:
 1) Development of the Logging Window
+
 2) Development of the Solution Explorer
