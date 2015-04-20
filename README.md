@@ -9,6 +9,5 @@ We will list here the features that are being worked on by the core team and tho
 there is limited or no duplication.
 
 #Current Activities:
-1) Development of the Logging Window
-
-2) Development of the Solution Explorer
+1. Development of the Logging Window
+2. Development of the Solution Explorer
