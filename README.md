@@ -10,8 +10,9 @@ there is limited or no duplication.
 
 #Current Activities:
 1. Development of the Logging Window (Done)
-2. First Run - Set up Project Folders and the IDE Application Folders  - In Progress
-3. Development of the Project Window
+2. First Run - Set up Project Folders and the IDE Application Folders  (Done)
+3. Development of the Start Window - In Progress
+4. Development of the Project Window 
 
 
 ####Useful Links
