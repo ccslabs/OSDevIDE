@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,26 +17,55 @@ namespace OSDevIDE
     {
         DockPanel dockPanel = new DockPanel();
 
-        frmSolutionExplorer solutionExplorer = new frmSolutionExplorer();
-        frmOutput output = new frmOutput();
+        private bool m_bSaveLayout = true;
+        private DeserializeDockContent m_deserializeDockContent;
+
+      
+        frmSolutionExplorer solutionExplorerForm = new frmSolutionExplorer();
+        frmOutput outputForm = new frmOutput();
+        frmStartup startupForm = new frmStartup();
 
         public frmMain()
         {
             InitializeComponent();
             dockPanel.Dock = DockStyle.Fill;
-            
             dockPanel.ShowDocumentIcon = true;
             dockPanel.BackColor = Color.AliceBlue;
-            toolStripContainer1.ContentPanel.Controls.Add(dockPanel);
-            
-            solutionExplorer.Show(dockPanel,DockState.DockRight);
-            output.Show(dockPanel, DockState.DockBottom);
+            this.Controls.Add(dockPanel);
+
+            m_deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
+            if (File.Exists("C:\\layout.xml"))
+                dockPanel.LoadFromXml("C:\\layout.xml", m_deserializeDockContent);
+           
 
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-          //  dockPanel.SaveAsXml()
+          if(m_bSaveLayout)
+          {
+              dockPanel.SaveAsXml("C:\\layout.xml");
+          }
         }
+
+        private IDockContent GetContentFromPersistString(string persistString)
+        {
+            if (persistString == typeof(frmSolutionExplorer).ToString())
+                return solutionExplorerForm;
+            else if (persistString == typeof(frmOutput).ToString())
+                return outputForm;
+            else if (persistString == typeof(frmStartup).ToString())
+                return startupForm;
+           
+            else
+            {
+                solutionExplorerForm.Show(dockPanel, DockState.DockRight);
+                outputForm.Show(dockPanel, DockState.DockBottom);
+                startupForm.Show(dockPanel, DockState.Document);
+            
+                return null;
+            }
+        }
+
     }
 }

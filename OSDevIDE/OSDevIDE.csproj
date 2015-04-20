@@ -82,6 +82,12 @@
     <Compile Include="Forms\Dockable\frmSolutionExplorer.Designer.cs">
       <DependentUpon>frmSolutionExplorer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Dockable\frmStartup.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dockable\frmStartup.Designer.cs">
+      <DependentUpon>frmStartup.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
