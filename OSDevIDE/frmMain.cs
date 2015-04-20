@@ -29,7 +29,7 @@ namespace OSDevIDE
         public frmMain()
         {
             InitializeComponent();
-            
+
             // SETUP Some Debugging Properties
 #if DEBUG
             Properties.Settings.Default.ApplicationFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OSIDE");
@@ -38,7 +38,7 @@ namespace OSDevIDE
 
 
             m_deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
-           
+
             if (File.Exists(Properties.Settings.Default.DockingLayoutFilePath))
                 dockPanel.LoadFromXml(Properties.Settings.Default.DockingLayoutFilePath, m_deserializeDockContent);
 
@@ -92,65 +92,79 @@ namespace OSDevIDE
         {
             frmMainLog("Getting Docking Layout");
             if (persistString == typeof(frmProject).ToString())
+            {
+                projectToolStripMenuItem.Checked = true;
+                projectForm.Disposed += projectForm_Disposed;
                 return projectForm;
+            }
             else if (persistString == typeof(frmOutput).ToString())
+            {
+                logginToolStripMenuItem.Checked = true;
+                outputForm.Disposed += outputForm_Disposed;
                 return outputForm;
+            }
             else if (persistString == typeof(frmStartup).ToString())
+            {
+                startupToolStripMenuItem.Checked = true;
+                startupForm.Disposed += startupForm_Disposed;
                 return startupForm;
-
+            }
             else
             {
-                projectForm.Show(dockPanel, DockState.DockRight);
-                outputForm.Show(dockPanel, DockState.DockBottom);
-                startupForm.Show(dockPanel, DockState.Document);
-
                 return null;
             }
         }
 
+        #region Dockable Forms Disposing
+        void startupForm_Disposed(object sender, EventArgs e)
+        {
+            startupToolStripMenuItem.Checked = false;
+        }
+
+        void outputForm_Disposed(object sender, EventArgs e)
+        {
+            logginToolStripMenuItem.Checked = false;
+        }
+
+        private void projectForm_Disposed(object sender, EventArgs e)
+        {
+            projectToolStripMenuItem.Checked = false;
+        }
+        #endregion
+
         #region Menu -> Windows -> Standard
         private void startupToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (startupToolStripMenuItem.Checked)
-            {
-                startupToolStripMenuItem.Checked = false;
-                startupForm.Hide();
-            }
-            else
-            {
-                startupForm.Show(dockPanel, DockState.Document);
-                startupToolStripMenuItem.Checked = true;
-            }
+            UpdateFormDisplay(startupToolStripMenuItem, startupForm, DockState.Document);
         }
 
         private void projectToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (projectToolStripMenuItem.Checked)
-            {
-                logginToolStripMenuItem.Checked = false;
-                projectForm.Hide();
-            }
-            else
-            {
-                projectForm.Show(dockPanel, DockState.DockRight);
-                projectToolStripMenuItem.Checked = true;
-            }
-
+            UpdateFormDisplay(projectToolStripMenuItem, projectForm, DockState.DockRight);
         }
 
         private void logginToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (logginToolStripMenuItem.Checked)
+            UpdateFormDisplay(logginToolStripMenuItem, outputForm, DockState.DockBottom);
+        }
+
+        // http://stackoverflow.com/questions/29757509/c-sharp-refactoring-to-nearly-identical-methods
+        private void UpdateFormDisplay<TForm>(ToolStripMenuItem menuItem, TForm frmName, DockState dockState) where TForm : DockContent, new()
+        {
+            if (menuItem.Checked)
             {
-                logginToolStripMenuItem.Checked = false;
-                outputForm.Hide();
+                menuItem.Checked = false;
+                if (!frmName.IsDisposed) frmName.Hide();
             }
             else
             {
-                outputForm.Show(dockPanel, DockState.DockBottom);
-                logginToolStripMenuItem.Checked = true;
+                if (frmName.IsDisposed)
+                    frmName = new TForm();
+                frmName.Show(dockPanel, dockState);
+                menuItem.Checked = true;
             }
         }
+
         #endregion
 
 
