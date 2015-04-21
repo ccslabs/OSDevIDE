@@ -1,7 +1,9 @@
 ﻿using OSDevIDE.Classes.Core;
+using OSDevIDE.Classes.Project;
 using OSDevIDE.Forms.Dialogues;
 using OSDevIDE.Forms.Dockable;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -65,6 +67,57 @@ namespace OSDevIDE
             else
             {
                 frmMainLog("This program has been setup properly");
+                if (string.IsNullOrEmpty(Properties.Settings.Default.CurrentProjectPath))
+                {
+                    // Ok so we don't know what the last Project was - let's see if we can find any
+                    ArrayList alProjects = new ArrayList();
+                    string[] dirs = Directory.GetDirectories(Properties.Settings.Default.ApplicationFolderPath);
+                    if (dirs.Count() > 0) // Ok we have some folders here - any of them Project Folders?
+                    {
+                        foreach (string dir in dirs)
+                        {
+                            string[] files = Directory.GetFiles(dir);
+                            foreach (string file in files)
+                            {
+                                // .osp files are project files
+                                FileInfo finfo = new FileInfo(file);
+                                if (finfo.Extension.ToLowerInvariant().Contains("osp")) //TODO: Associate .osp files with this application
+                                {
+                                    alProjects.Add(finfo);
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        frmMainLog("There are no projects currently available.");
+                    }
+
+                    if (alProjects.Count > 0)
+                    {
+                        // Ok we have projects but which one is the Current project?
+                        // probably the last written to?
+                        FileInfo finfoLatest = null;
+
+                        foreach (FileInfo finfo in alProjects)
+                        {
+                            if (finfoLatest == null)
+                                finfoLatest = finfo;
+
+                            if (finfo.LastWriteTime > finfoLatest.LastWriteTime)
+                                finfoLatest = finfo;
+                        }
+
+                        // finfoLatest should now be the Current Project !!
+                        // so save the information to Properties so that the rest of the app can get the information easily
+                        LoadProject.OpenProject(finfoLatest);
+                        
+                    }
+                    else
+                    {
+                        frmMainLog("There are no projects currently available.");
+                    }
+                }
             }
         }
 
@@ -212,6 +265,6 @@ namespace OSDevIDE
         }
         #endregion
 
-       
+
     }
 }
