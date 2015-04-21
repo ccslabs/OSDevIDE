@@ -82,5 +82,17 @@ namespace OSDevIDE.Properties {
                 this["CurrentProjectName"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CurrentProjectCreationDate {
+            get {
+                return ((string)(this["CurrentProjectCreationDate"]));
+            }
+            set {
+                this["CurrentProjectCreationDate"] = value;
+            }
+        }
     }
 }

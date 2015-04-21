@@ -14,16 +14,28 @@ namespace OSDevIDE.Forms.Dockable
 {
     public partial class frmStartup : DockContent
     {
+
+        delegate void SetLabelTextCallback(Label lbl, string text);
+
         public frmStartup()
         {
             InitializeComponent();
-            Task tPopulateStartPage = new Task(() => PopulateStartPage());
-            tPopulateStartPage.Start();
+            Properties.Settings.Default.PropertyChanged += Default_PropertyChanged;
+
+        }
+
+        void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "CurrentProjectName")
+               SetLabelText(lblCurrentProjectName, Properties.Settings.Default.CurrentProjectName);
+            if (e.PropertyName == "CurrentProjectCreationDate")
+               SetLabelText(lblCreationDate, Properties.Settings.Default.CurrentProjectCreationDate);
         }
 
         private void PopulateStartPage()
         {
-           // throw new NotImplementedException();
+            SetLabelText(lblCurrentProjectName, Properties.Settings.Default.CurrentProjectName);
+            SetLabelText(lblCreationDate, Properties.Settings.Default.CurrentProjectCreationDate);
         }
 
         /// <summary>
@@ -39,9 +51,31 @@ namespace OSDevIDE.Forms.Dockable
             int pSpacing = (Math.Max(gbTeamDetails.Left, gbCurrentProject.Right) - Math.Min(gbTeamDetails.Left, gbCurrentProject.Right)) * 2;   // Total Spacing between the GroupBoxes
             pWidth = pWidth - pSpacing; // True usable width of the FlowLayOutPanel
 
-                gbCurrentProject.Size =  new Size((pWidth / 3) - 5,gbCurrentProject.Height);
-                gbTeamDetails.Size = new Size((pWidth / 3) - 5, gbCurrentProject.Height);
-                gbYourDetails.Size = new Size((pWidth / 3) - 5, gbCurrentProject.Height);
+            gbCurrentProject.Size = new Size((pWidth / 3) - 5, gbCurrentProject.Height);
+            gbTeamDetails.Size = new Size((pWidth / 3) - 5, gbCurrentProject.Height);
+            gbYourDetails.Size = new Size((pWidth / 3) - 5, gbCurrentProject.Height);
+
+        }
+
+        private void frmStartup_Load(object sender, EventArgs e)
+        {
+            PopulateStartPage();
+        }
+
+        private void SetLabelText(Label lbl, string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (lbl.InvokeRequired)
+            {
+                SetLabelTextCallback d = new SetLabelTextCallback(SetLabelText);
+                this.Invoke(d, new object[] {lbl, text });
+            }
+            else
+            {
+                lbl.Text = text;
+            }
 
         }
     }

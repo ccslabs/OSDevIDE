@@ -44,7 +44,9 @@ namespace OSDevIDE.Forms.Dockable
 
         private void Start()
         {
-            SetFCTBMessage("OS Development IDE Version: " + coreGets.GetExecutableVersion(), infoStyle);
+            string version = "OS Development IDE Version: " + coreGets.GetExecutableVersion();
+            SetFCTBMessage(version, infoStyle);
+            this.Text = this.Text + "   [" + version + "]";
         }
 
 

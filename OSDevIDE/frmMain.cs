@@ -1,4 +1,5 @@
 ﻿using OSDevIDE.Classes.Core;
+using OSDevIDE.Classes.Enumerations;
 using OSDevIDE.Classes.Project;
 using OSDevIDE.Forms.Dialogues;
 using OSDevIDE.Forms.Dockable;
@@ -57,16 +58,16 @@ namespace OSDevIDE
 
             if (cs.FirtsRun())
             {
-                frmMainLog("This program has not been setup since being installed", Classes.Enumerations.LoggingEnumerations.LogEventTypes.Warning);
+                frmMainLog("This program has not been setup since being installed", LoggingEnumerations.LogEventTypes.Warning);
                 Properties.Settings.Default.ApplicationFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OSIDE");
                 Properties.Settings.Default.DockingLayoutFilePath = Path.Combine(Properties.Settings.Default.ApplicationFolderPath, "DockingLayout.xml");
                 if (!Directory.Exists(Properties.Settings.Default.ApplicationFolderPath))
                     Directory.CreateDirectory(Properties.Settings.Default.ApplicationFolderPath);
-                frmMainLog("Initial Setup Complete", Classes.Enumerations.LoggingEnumerations.LogEventTypes.Success);
+                frmMainLog("Initial Setup Complete", LoggingEnumerations.LogEventTypes.Success);
             }
             else
             {
-                frmMainLog("This program has been setup properly");
+                frmMainLog("This program has been setup properly",LoggingEnumerations.LogEventTypes.Success);
                 if (string.IsNullOrEmpty(Properties.Settings.Default.CurrentProjectPath))
                 {
                     // Ok so we don't know what the last Project was - let's see if we can find any
@@ -110,23 +111,32 @@ namespace OSDevIDE
 
                         // finfoLatest should now be the Current Project !!
                         // so save the information to Properties so that the rest of the app can get the information easily
+                        frmMainLog("Loading Suspected Current Project",LoggingEnumerations.LogEventTypes.Warning);
                         LoadProject.OpenProject(finfoLatest);
-                        
+
                     }
                     else
                     {
                         frmMainLog("There are no projects currently available.");
                     }
                 }
+                else
+                {
+                    frmMainLog("Loading Reported Current Project",LoggingEnumerations.LogEventTypes.Success);
+                    LoadProject.OpenProject(Properties.Settings.Default.CurrentProjectPath);
+                }
             }
         }
 
         //TODO: Clean this up
-        private void frmMainLog(string Message, OSDevIDE.Classes.Enumerations.LoggingEnumerations.LogEventTypes le = Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information)
+        private void frmMainLog(string Message, LoggingEnumerations.LogEventTypes le = LoggingEnumerations.LogEventTypes.Information)
         {
             StackTrace stackTrace = new StackTrace();
             string callingMethod = stackTrace.GetFrame(2).GetMethod().Name; // Display if in Debug Mode - which Method called me
-            outputForm.OutputLog(le, "[" + callingMethod + "]\t" + Message);
+            if (!callingMethod.Contains("<.ctor>b__0"))
+                outputForm.OutputLog(le, "[" + callingMethod + "]\t" + Message);
+            else
+                outputForm.OutputLog(le, "\t" + Message);
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmStartup));
             this.flpBottom = new System.Windows.Forms.FlowLayoutPanel();
             this.gbYourDetails = new System.Windows.Forms.GroupBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -44,7 +45,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
+            this.lblCreationDate = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.gbTeamDetails = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -220,7 +221,7 @@
             this.gbCurrentProject.Controls.Add(this.label5);
             this.gbCurrentProject.Controls.Add(this.label6);
             this.gbCurrentProject.Controls.Add(this.lblCurrentProjectName);
-            this.gbCurrentProject.Controls.Add(this.label18);
+            this.gbCurrentProject.Controls.Add(this.lblCreationDate);
             this.gbCurrentProject.Controls.Add(this.label19);
             this.gbCurrentProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbCurrentProject.ForeColor = System.Drawing.Color.White;
@@ -265,16 +266,16 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "Human Hours";
             // 
-            // label18
+            // lblCreationDate
             // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.Goldenrod;
-            this.label18.Location = new System.Drawing.Point(94, 59);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(16, 15);
-            this.label18.TabIndex = 18;
-            this.label18.Text = "...";
+            this.lblCreationDate.AutoSize = true;
+            this.lblCreationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCreationDate.ForeColor = System.Drawing.Color.Goldenrod;
+            this.lblCreationDate.Location = new System.Drawing.Point(94, 59);
+            this.lblCreationDate.Name = "lblCreationDate";
+            this.lblCreationDate.Size = new System.Drawing.Size(31, 15);
+            this.lblCreationDate.TabIndex = 18;
+            this.lblCreationDate.Text = "14 1";
             // 
             // label19
             // 
@@ -456,14 +457,13 @@
             // lblCurrentProjectName
             // 
             this.lblCurrentProjectName.AutoSize = true;
-            this.lblCurrentProjectName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::OSDevIDE.Properties.Settings.Default, "CurrentProjectName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.lblCurrentProjectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCurrentProjectName.ForeColor = System.Drawing.Color.Goldenrod;
             this.lblCurrentProjectName.Location = new System.Drawing.Point(94, 35);
             this.lblCurrentProjectName.Name = "lblCurrentProjectName";
             this.lblCurrentProjectName.Size = new System.Drawing.Size(16, 15);
             this.lblCurrentProjectName.TabIndex = 17;
-            this.lblCurrentProjectName.Text = global::OSDevIDE.Properties.Settings.Default.CurrentProjectName;
+            this.lblCurrentProjectName.Text = "...";
             // 
             // frmStartup
             // 
@@ -474,8 +474,10 @@
             this.Controls.Add(this.flpBottom);
             this.DockAreas = WeifenLuo.WinFormsUI.Docking.DockAreas.Document;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmStartup";
             this.Text = "Start Page";
+            this.Load += new System.EventHandler(this.frmStartup_Load);
             this.flpBottom.ResumeLayout(false);
             this.gbYourDetails.ResumeLayout(false);
             this.gbYourDetails.PerformLayout();
@@ -506,7 +508,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblCurrentProjectName;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label lblCreationDate;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.GroupBox gbTeamDetails;
         private System.Windows.Forms.Label label9;
