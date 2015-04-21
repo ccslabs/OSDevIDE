@@ -46,5 +46,17 @@ namespace OSDevIDE.Properties {
                 this["DockingLayoutFilePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DefaultProjectFolder {
+            get {
+                return ((string)(this["DefaultProjectFolder"]));
+            }
+            set {
+                this["DefaultProjectFolder"] = value;
+            }
+        }
     }
 }

@@ -90,7 +90,7 @@ namespace OSDevIDE
 
         private IDockContent GetContentFromPersistString(string persistString)
         {
-            frmMainLog("Getting Docking Layout");
+            frmMainLog("Getting Docking Layout -> " + persistString);
             if (persistString == typeof(frmProject).ToString())
             {
                 projectToolStripMenuItem.Checked = true;
@@ -166,6 +166,24 @@ namespace OSDevIDE
         }
 
         #endregion
+
+        #region New Project
+        private void newToolStripButton_Click(object sender, EventArgs e)
+        {
+            CreateNewProject();
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CreateNewProject();
+        }
+
+        private void CreateNewProject()
+        {
+
+        }
+        #endregion
+        
 
 
     }
