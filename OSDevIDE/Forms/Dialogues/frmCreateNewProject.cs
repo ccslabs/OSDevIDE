@@ -76,6 +76,7 @@ namespace OSDevIDE.Forms.Dialogues
                         {
                             LogEvent(OSDevIDE.Classes.Enumerations.LoggingEnumerations.LogEventTypes.Success, "Project " + pc.ProjectName + " successfully created");
                             Properties.Settings.Default.CurrentProjectPath = pc.ProjectSaveLocation;
+                            Properties.Settings.Default.CurrentProjectName = pc.ProjectName;
                         }
                         else
                         {
@@ -89,6 +90,8 @@ namespace OSDevIDE.Forms.Dialogues
                             if (writeProjectToDisk.SaveProjectDefaultFolder(pc))
                             {
                                 LogEvent(OSDevIDE.Classes.Enumerations.LoggingEnumerations.LogEventTypes.Success, "Project " + pc.ProjectName + " successfully created");
+                                Properties.Settings.Default.CurrentProjectPath = pc.ProjectSaveLocation;
+                                Properties.Settings.Default.CurrentProjectName = pc.ProjectName;
                             }
                             else
                             {

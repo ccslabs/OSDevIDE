@@ -70,5 +70,17 @@ namespace OSDevIDE.Properties {
                 this["CurrentProjectPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("...")]
+        public string CurrentProjectName {
+            get {
+                return ((string)(this["CurrentProjectName"]));
+            }
+            set {
+                this["CurrentProjectName"] = value;
+            }
+        }
     }
 }

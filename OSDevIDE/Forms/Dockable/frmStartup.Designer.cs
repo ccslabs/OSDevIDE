@@ -268,13 +268,14 @@
             // lblCurrentProjectName
             // 
             this.lblCurrentProjectName.AutoSize = true;
+            this.lblCurrentProjectName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::OSDevIDE.Properties.Settings.Default, "CurrentProjectName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.lblCurrentProjectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCurrentProjectName.ForeColor = System.Drawing.Color.Goldenrod;
             this.lblCurrentProjectName.Location = new System.Drawing.Point(94, 35);
             this.lblCurrentProjectName.Name = "lblCurrentProjectName";
             this.lblCurrentProjectName.Size = new System.Drawing.Size(16, 15);
             this.lblCurrentProjectName.TabIndex = 17;
-            this.lblCurrentProjectName.Text = "...";
+            this.lblCurrentProjectName.Text = global::OSDevIDE.Properties.Settings.Default.CurrentProjectName;
             // 
             // label18
             // 
