@@ -133,6 +133,13 @@ namespace OSDevIDE
         }
         #endregion
 
+        #region Menu -> Project
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+        #endregion
+
         #region Menu -> Windows -> Standard
         private void startupToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -184,7 +191,19 @@ namespace OSDevIDE
             frmMainLog("User Creating New Project");
             frmCreateNewProject createNewProjectForm = new frmCreateNewProject();
             createNewProjectForm.LogEvent += createNewProjectForm_LogEvent;
-            createNewProjectForm.ShowDialog();
+            DialogResult dr = createNewProjectForm.ShowDialog();
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                // Load the Project File
+                // Populate ProjectClass
+                // Create the Default folders
+                // Populate the Project Window
+                // Commit To GitHub <Free> or <PaidFor> User decides.
+
+            }
+            else
+                frmMainLog("User Canceled the New Project");
+
         }
 
         void createNewProjectForm_LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes EventType, string status)
@@ -192,8 +211,7 @@ namespace OSDevIDE
             frmMainLog(status, EventType);
         }
         #endregion
-        
 
-
+       
     }
 }
