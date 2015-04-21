@@ -72,7 +72,9 @@
   <ItemGroup>
     <Compile Include="Classes\Core\CoreGets.cs" />
     <Compile Include="Classes\Core\CoreSetup.cs" />
+    <Compile Include="Classes\DiskIO\Writing\Write.cs" />
     <Compile Include="Classes\Enumerations\LoggingEnumerations.cs" />
+    <Compile Include="Classes\Project\ProjectClass.cs" />
     <Compile Include="Forms\Dialogues\frmCreateNewProject.cs">
       <SubType>Form</SubType>
     </Compile>

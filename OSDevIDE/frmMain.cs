@@ -1,4 +1,5 @@
 ﻿using OSDevIDE.Classes.Core;
+using OSDevIDE.Forms.Dialogues;
 using OSDevIDE.Forms.Dockable;
 using System;
 using System.Collections.Generic;
@@ -180,7 +181,15 @@ namespace OSDevIDE
 
         private void CreateNewProject()
         {
+            frmMainLog("User Creating New Project");
+            frmCreateNewProject createNewProjectForm = new frmCreateNewProject();
+            createNewProjectForm.LogEvent += createNewProjectForm_LogEvent;
+            createNewProjectForm.ShowDialog();
+        }
 
+        void createNewProjectForm_LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes EventType, string status)
+        {
+            frmMainLog(status, EventType);
         }
         #endregion
         
