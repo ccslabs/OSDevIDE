@@ -10,7 +10,16 @@ namespace OSDevIDE.Classes.DiskIO.Writing
 {
     class Write
     {
-
+        /// <summary>
+        /// Creates a New Project in the OSIDE main directory
+        /// </summary>
+        /// <param name="projectClass">
+        /// Class: Contains Information on the Project that is to be created.
+        /// </param>
+        /// <returns>
+        /// Bool: True if successful
+        /// Bool: False if the Creation Failed
+        /// </returns>
         internal bool SaveProjectApplicationFolder(ProjectClass projectClass)
         {
             string ApplicationFolderPath = Properties.Settings.Default.ApplicationFolderPath;   // Standard Save location (Always Save Here)
@@ -26,6 +35,16 @@ namespace OSDevIDE.Classes.DiskIO.Writing
             return SaveProjectTo(projectClass,path);
         }
 
+        /// <summary>
+        /// Creates a New Project in a directory named by the User
+        /// </summary>
+        /// <param name="projectClass">
+        /// Class: Contains Information on the Project that is to be created.
+        /// </param>
+        /// <returns>
+        /// Bool: True if successful
+        /// Bool: False if the Creation Failed
+        /// </returns>
         internal bool SaveProjectDefaultFolder(ProjectClass projectClass)
         {
             string DefaultProjectFolder = Properties.Settings.Default.DefaultProjectFolder;     // Alternative Save Location
@@ -42,6 +61,19 @@ namespace OSDevIDE.Classes.DiskIO.Writing
                return SaveProjectTo(projectClass, path);           
         }
 
+        /// <summary>
+        /// This Method physically saves the project and is used internally.
+        /// </summary>
+        /// <param name="projectClass">
+        /// Class: Contains information about the project being created
+        /// </param>
+        /// <param name="saveFileToLocation">
+        /// string: The location where the Project File should be saved to.
+        /// </param>
+        /// <returns>
+        /// Bool: True if the save was successful
+        /// Bool: False if the save failed
+        /// </returns>
         private bool SaveProjectTo(ProjectClass projectClass, string saveFileToLocation)
         {
             FileStream fs = null;
