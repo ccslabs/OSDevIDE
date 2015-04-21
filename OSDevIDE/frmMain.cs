@@ -72,7 +72,7 @@ namespace OSDevIDE
         private void frmMainLog(string Message, OSDevIDE.Classes.Enumerations.LoggingEnumerations.LogEventTypes le = Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information)
         {
             StackTrace stackTrace = new StackTrace();
-            string callingMethod = stackTrace.GetFrame(1).GetMethod().Name; // Display if in Debug Mode - which Method called me
+            string callingMethod = stackTrace.GetFrame(2).GetMethod().Name; // Display if in Debug Mode - which Method called me
             outputForm.OutputLog(le, "[" + callingMethod + "]\t" + Message);
         }
 

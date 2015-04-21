@@ -44,7 +44,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.lblCurrentProjectName = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.gbTeamDetails = new System.Windows.Forms.GroupBox();
@@ -61,6 +60,7 @@
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.lblCurrentProjectName = new System.Windows.Forms.Label();
             this.flpBottom.SuspendLayout();
             this.gbYourDetails.SuspendLayout();
             this.gbCurrentProject.SuspendLayout();
@@ -71,14 +71,14 @@
             // 
             this.flpBottom.AutoScroll = true;
             this.flpBottom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.flpBottom.Controls.Add(this.gbYourDetails);
             this.flpBottom.Controls.Add(this.gbCurrentProject);
             this.flpBottom.Controls.Add(this.gbTeamDetails);
+            this.flpBottom.Controls.Add(this.gbYourDetails);
             this.flpBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flpBottom.Location = new System.Drawing.Point(0, 239);
+            this.flpBottom.Location = new System.Drawing.Point(0, 196);
             this.flpBottom.Name = "flpBottom";
             this.flpBottom.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            this.flpBottom.Size = new System.Drawing.Size(1094, 208);
+            this.flpBottom.Size = new System.Drawing.Size(1268, 208);
             this.flpBottom.TabIndex = 0;
             this.flpBottom.SizeChanged += new System.EventHandler(this.flpBottom_SizeChanged);
             // 
@@ -96,7 +96,7 @@
             this.gbYourDetails.Controls.Add(this.label29);
             this.gbYourDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbYourDetails.ForeColor = System.Drawing.Color.White;
-            this.gbYourDetails.Location = new System.Drawing.Point(13, 3);
+            this.gbYourDetails.Location = new System.Drawing.Point(733, 3);
             this.gbYourDetails.MinimumSize = new System.Drawing.Size(354, 201);
             this.gbYourDetails.Name = "gbYourDetails";
             this.gbYourDetails.Size = new System.Drawing.Size(354, 201);
@@ -224,7 +224,7 @@
             this.gbCurrentProject.Controls.Add(this.label19);
             this.gbCurrentProject.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbCurrentProject.ForeColor = System.Drawing.Color.White;
-            this.gbCurrentProject.Location = new System.Drawing.Point(373, 3);
+            this.gbCurrentProject.Location = new System.Drawing.Point(13, 3);
             this.gbCurrentProject.MinimumSize = new System.Drawing.Size(354, 201);
             this.gbCurrentProject.Name = "gbCurrentProject";
             this.gbCurrentProject.Size = new System.Drawing.Size(354, 201);
@@ -265,18 +265,6 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "Human Hours";
             // 
-            // lblCurrentProjectName
-            // 
-            this.lblCurrentProjectName.AutoSize = true;
-            this.lblCurrentProjectName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::OSDevIDE.Properties.Settings.Default, "CurrentProjectName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.lblCurrentProjectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCurrentProjectName.ForeColor = System.Drawing.Color.Goldenrod;
-            this.lblCurrentProjectName.Location = new System.Drawing.Point(94, 35);
-            this.lblCurrentProjectName.Name = "lblCurrentProjectName";
-            this.lblCurrentProjectName.Size = new System.Drawing.Size(16, 15);
-            this.lblCurrentProjectName.TabIndex = 17;
-            this.lblCurrentProjectName.Text = global::OSDevIDE.Properties.Settings.Default.CurrentProjectName;
-            // 
             // label18
             // 
             this.label18.AutoSize = true;
@@ -315,7 +303,7 @@
             this.gbTeamDetails.Controls.Add(this.label20);
             this.gbTeamDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbTeamDetails.ForeColor = System.Drawing.Color.White;
-            this.gbTeamDetails.Location = new System.Drawing.Point(13, 210);
+            this.gbTeamDetails.Location = new System.Drawing.Point(373, 3);
             this.gbTeamDetails.MinimumSize = new System.Drawing.Size(354, 201);
             this.gbTeamDetails.Name = "gbTeamDetails";
             this.gbTeamDetails.Size = new System.Drawing.Size(354, 201);
@@ -461,15 +449,27 @@
             this.webBrowser1.Location = new System.Drawing.Point(0, 0);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1094, 239);
+            this.webBrowser1.Size = new System.Drawing.Size(1268, 196);
             this.webBrowser1.TabIndex = 1;
             this.webBrowser1.Url = new System.Uri("https://github.com/ccslabs/OSDevIDE", System.UriKind.Absolute);
+            // 
+            // lblCurrentProjectName
+            // 
+            this.lblCurrentProjectName.AutoSize = true;
+            this.lblCurrentProjectName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::OSDevIDE.Properties.Settings.Default, "CurrentProjectName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.lblCurrentProjectName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCurrentProjectName.ForeColor = System.Drawing.Color.Goldenrod;
+            this.lblCurrentProjectName.Location = new System.Drawing.Point(94, 35);
+            this.lblCurrentProjectName.Name = "lblCurrentProjectName";
+            this.lblCurrentProjectName.Size = new System.Drawing.Size(16, 15);
+            this.lblCurrentProjectName.TabIndex = 17;
+            this.lblCurrentProjectName.Text = global::OSDevIDE.Properties.Settings.Default.CurrentProjectName;
             // 
             // frmStartup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1094, 447);
+            this.ClientSize = new System.Drawing.Size(1268, 404);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.flpBottom);
             this.DockAreas = WeifenLuo.WinFormsUI.Docking.DockAreas.Document;

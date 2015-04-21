@@ -52,7 +52,7 @@ namespace OSDevIDE.Forms.Dockable
         {
             Style style = infoStyle;
             StackTrace stackTrace = new StackTrace();
-            string callingMethod = stackTrace.GetFrame(1).GetMethod().Name; // Display if in Debug Mode - which Method called me
+            string callingMethod = stackTrace.GetFrame(2).GetMethod().Name; // Display if in Debug Mode - which Method called me
 
             switch (logEnum)
             {
