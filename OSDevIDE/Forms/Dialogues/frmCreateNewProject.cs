@@ -24,12 +24,23 @@ namespace OSDevIDE.Forms.Dialogues
             InitializeComponent();
         }
 
+        /// <summary>
+        /// User has canceled the creation of the project
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCancel_Click(object sender, EventArgs e)
         {
             if (LogEvent != null) LogEvent(OSDevIDE.Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information, "User Canceled New Project ");
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Close();
         }
 
+        /// <summary>
+        /// The User wants to go ahead with creating the new project
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnCreate_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbProjectName.Text))
@@ -89,18 +100,34 @@ namespace OSDevIDE.Forms.Dialogues
                 }
             }
             this.Close();
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
         }
 
+        /// <summary>
+        /// The Project Name Has Changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tbProjectName_TextChanged(object sender, EventArgs e)
         {
             tbApplicationName.Text = tbProjectName.Text;
         }
 
+        /// <summary>
+        /// The Default Save Location has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tbSaveLocation_TextChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.DefaultProjectFolder = tbSaveLocation.Text;
         }
 
+        /// <summary>
+        /// The User wants to browse for a folder to save the project to
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             DialogResult dr = FBD.ShowDialog();

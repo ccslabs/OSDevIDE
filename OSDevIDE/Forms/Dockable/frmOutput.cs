@@ -101,6 +101,9 @@ namespace OSDevIDE.Forms.Dockable
                 //
                 fctb.Selection.EndUpdate();
                 fctb.EndUpdate();
+
+                //FIX: May need to return focus to the previously focused object
+                fctb.Focus();
             }
         }
 
