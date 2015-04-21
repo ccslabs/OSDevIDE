@@ -116,6 +116,9 @@
     <EmbeddedResource Include="Forms\Dockable\frmProject.resx">
       <DependentUpon>frmProject.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dockable\frmStartup.resx">
+      <DependentUpon>frmStartup.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
