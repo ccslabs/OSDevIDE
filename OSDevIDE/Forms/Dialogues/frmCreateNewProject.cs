@@ -88,6 +88,7 @@ namespace OSDevIDE.Forms.Dialogues
                     }
                 }
             }
+            this.Close();
         }
 
         private void tbProjectName_TextChanged(object sender, EventArgs e)
