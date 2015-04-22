@@ -94,5 +94,29 @@ namespace OSDevIDE.Properties {
                 this["CurrentProjectCreationDate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Khaki")]
+        public global::System.Drawing.Color LblTitleForecolour {
+            get {
+                return ((global::System.Drawing.Color)(this["LblTitleForecolour"]));
+            }
+            set {
+                this["LblTitleForecolour"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Goldenrod")]
+        public global::System.Drawing.Color LblValueForecolour {
+            get {
+                return ((global::System.Drawing.Color)(this["LblValueForecolour"]));
+            }
+            set {
+                this["LblValueForecolour"] = value;
+            }
+        }
     }
 }

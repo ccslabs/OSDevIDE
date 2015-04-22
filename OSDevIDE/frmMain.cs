@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,6 +26,7 @@ namespace OSDevIDE
         private bool m_bSaveLayout = true;
         private DeserializeDockContent m_deserializeDockContent;
 
+        CoreUserIdle cui = new CoreUserIdle(false);
 
         frmProject projectForm = new frmProject();
         frmOutput outputForm = new frmOutput();
@@ -33,6 +35,7 @@ namespace OSDevIDE
         public frmMain()
         {
             InitializeComponent();
+         
 
             // SETUP Some Debugging Properties
 #if DEBUG
@@ -51,6 +54,8 @@ namespace OSDevIDE
             tStartUp.Start();
         }
 
+
+        #region Needing Re-factored and placed in the correct
         private void Start()
         {
             CoreSetup cs = new CoreSetup();
@@ -58,75 +63,103 @@ namespace OSDevIDE
 
             if (cs.FirtsRun())
             {
-                frmMainLog("This program has not been setup since being installed", LoggingEnumerations.LogEventTypes.Warning);
-                Properties.Settings.Default.ApplicationFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OSIDE");
-                Properties.Settings.Default.DockingLayoutFilePath = Path.Combine(Properties.Settings.Default.ApplicationFolderPath, "DockingLayout.xml");
-                if (!Directory.Exists(Properties.Settings.Default.ApplicationFolderPath))
-                    Directory.CreateDirectory(Properties.Settings.Default.ApplicationFolderPath);
-                frmMainLog("Initial Setup Complete", LoggingEnumerations.LogEventTypes.Success);
+                FirstRunSetup();
             }
             else
             {
-                frmMainLog("This program has been setup properly",LoggingEnumerations.LogEventTypes.Success);
-                if (string.IsNullOrEmpty(Properties.Settings.Default.CurrentProjectPath))
-                {
-                    // Ok so we don't know what the last Project was - let's see if we can find any
-                    ArrayList alProjects = new ArrayList();
-                    string[] dirs = Directory.GetDirectories(Properties.Settings.Default.ApplicationFolderPath);
-                    if (dirs.Count() > 0) // Ok we have some folders here - any of them Project Folders?
-                    {
-                        foreach (string dir in dirs)
-                        {
-                            string[] files = Directory.GetFiles(dir);
-                            foreach (string file in files)
-                            {
-                                // .osp files are project files
-                                FileInfo finfo = new FileInfo(file);
-                                if (finfo.Extension.ToLowerInvariant().Contains("osp")) //TODO: Associate .osp files with this application
-                                {
-                                    alProjects.Add(finfo);
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        frmMainLog("There are no projects currently available.");
-                    }
-
-                    if (alProjects.Count > 0)
-                    {
-                        // Ok we have projects but which one is the Current project?
-                        // probably the last written to?
-                        FileInfo finfoLatest = null;
-
-                        foreach (FileInfo finfo in alProjects)
-                        {
-                            if (finfoLatest == null)
-                                finfoLatest = finfo;
-
-                            if (finfo.LastWriteTime > finfoLatest.LastWriteTime)
-                                finfoLatest = finfo;
-                        }
-
-                        // finfoLatest should now be the Current Project !!
-                        // so save the information to Properties so that the rest of the app can get the information easily
-                        frmMainLog("Loading Suspected Current Project",LoggingEnumerations.LogEventTypes.Warning);
-                        LoadProject.OpenProject(finfoLatest);
-
-                    }
-                    else
-                    {
-                        frmMainLog("There are no projects currently available.");
-                    }
-                }
-                else
-                {
-                    frmMainLog("Loading Reported Current Project",LoggingEnumerations.LogEventTypes.Success);
-                    LoadProject.OpenProject(Properties.Settings.Default.CurrentProjectPath);
-                }
+                StandardRun();
             }
         }
+
+        private void StandardRun()
+        {
+            frmMainLog("This program has been setup properly", LoggingEnumerations.LogEventTypes.Success);
+            if (string.IsNullOrEmpty(Properties.Settings.Default.CurrentProjectPath))
+            {
+                // Ok so we don't know what the last Project was - let's see if we can find any
+                ArrayList alProjects = FindPreviousProjects();
+
+                LoadSuspectedCurrentProject(alProjects);
+            }
+            else
+            {
+                LoadReportedCurrentProject();
+            }
+        }
+
+        private void LoadReportedCurrentProject()
+        {
+            frmMainLog("Loading Reported Current Project", LoggingEnumerations.LogEventTypes.Success);
+            LoadProject.OpenProject(Properties.Settings.Default.CurrentProjectPath);
+        }
+
+        private void LoadSuspectedCurrentProject(ArrayList alProjects)
+        {
+            if (alProjects.Count > 0)
+            {
+                // Ok we have projects but which one is the Current project?
+                // probably the last written to?
+                FileInfo finfoLatest = null;
+
+                foreach (FileInfo finfo in alProjects)
+                {
+                    if (finfoLatest == null)
+                        finfoLatest = finfo;
+
+                    if (finfo.LastWriteTime > finfoLatest.LastWriteTime)
+                        finfoLatest = finfo;
+                }
+
+                // finfoLatest should now be the Current Project !!
+                // so save the information to Properties so that the rest of the app can get the information easily
+                frmMainLog("Loading Suspected Current Project", LoggingEnumerations.LogEventTypes.Warning);
+                LoadProject.OpenProject(finfoLatest);
+
+            }
+            else
+            {
+                frmMainLog("There are no projects currently available.");
+            }
+        }
+
+        private ArrayList FindPreviousProjects()
+        {
+            ArrayList alProjects = new ArrayList();
+            string[] dirs = Directory.GetDirectories(Properties.Settings.Default.ApplicationFolderPath);
+            if (dirs.Count() > 0) // Ok we have some folders here - any of them Project Folders?
+            {
+                foreach (string dir in dirs)
+                {
+                    string[] files = Directory.GetFiles(dir);
+                    foreach (string file in files)
+                    {
+                        // .osp files are project files
+                        FileInfo finfo = new FileInfo(file);
+                        if (finfo.Extension.ToLowerInvariant().Contains("osp")) //TODO: Associate .osp files with this application
+                        {
+                            alProjects.Add(finfo);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                frmMainLog("There are no projects currently available.");
+            }
+            return alProjects;
+        }
+
+        private void FirstRunSetup()
+        {
+            frmMainLog("This program has not been setup since being installed", LoggingEnumerations.LogEventTypes.Warning);
+            Properties.Settings.Default.ApplicationFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OSIDE");
+            Properties.Settings.Default.DockingLayoutFilePath = Path.Combine(Properties.Settings.Default.ApplicationFolderPath, "DockingLayout.xml");
+            if (!Directory.Exists(Properties.Settings.Default.ApplicationFolderPath))
+                Directory.CreateDirectory(Properties.Settings.Default.ApplicationFolderPath);
+            frmMainLog("Initial Setup Complete", LoggingEnumerations.LogEventTypes.Success);
+        }
+        #endregion
+
 
         //TODO: Clean this up
         private void frmMainLog(string Message, LoggingEnumerations.LogEventTypes le = LoggingEnumerations.LogEventTypes.Information)
@@ -199,6 +232,7 @@ namespace OSDevIDE
         #region Menu -> Project
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             Application.Exit();
         }
         #endregion
@@ -276,5 +310,7 @@ namespace OSDevIDE
         #endregion
 
 
+     
+      
     }
 }

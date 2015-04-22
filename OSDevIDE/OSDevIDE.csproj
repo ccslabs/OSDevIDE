@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OSDevIDE</RootNamespace>
     <AssemblyName>OSDevIDE</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -28,6 +28,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -72,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Classes\Core\CoreGets.cs" />
     <Compile Include="Classes\Core\CoreSetup.cs" />
+    <Compile Include="Classes\Core\CoreUserIdle.cs" />
     <Compile Include="Classes\DiskIO\Reading\Read.cs" />
     <Compile Include="Classes\DiskIO\Writing\Write.cs" />
     <Compile Include="Classes\Enumerations\LoggingEnumerations.cs" />

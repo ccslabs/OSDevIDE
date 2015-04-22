@@ -20,5 +20,11 @@
     <Setting Name="CurrentProjectCreationDate" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="LblTitleForecolour" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Khaki</Value>
+    </Setting>
+    <Setting Name="LblValueForecolour" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Goldenrod</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
