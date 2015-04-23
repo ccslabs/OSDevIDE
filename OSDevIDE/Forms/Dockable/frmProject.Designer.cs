@@ -31,16 +31,18 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmProject));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tvProjectTree = new System.Windows.Forms.TreeView();
-            this.ilTreeviewImages = new System.Windows.Forms.ImageList(this.components);
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblProjectName = new System.Windows.Forms.Label();
-            this.lblDevelopmentTime = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.lblIdleTime = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.lblDevelopmentTime = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblProjectName = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tvProjectTree = new System.Windows.Forms.TreeView();
+            this.ilTreeviewImages = new System.Windows.Forms.ImageList(this.components);
             this.timerSeconds = new System.Windows.Forms.Timer(this.components);
+            this.fsw = new System.IO.FileSystemWatcher();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fsw)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -54,74 +56,11 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 10);
             this.panel1.Name = "panel1";
+            this.panel1.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.panel1.Size = new System.Drawing.Size(334, 78);
             this.panel1.TabIndex = 0;
-            // 
-            // tvProjectTree
-            // 
-            this.tvProjectTree.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.tvProjectTree.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvProjectTree.ImageIndex = 0;
-            this.tvProjectTree.ImageList = this.ilTreeviewImages;
-            this.tvProjectTree.Location = new System.Drawing.Point(0, 78);
-            this.tvProjectTree.Name = "tvProjectTree";
-            this.tvProjectTree.SelectedImageIndex = 0;
-            this.tvProjectTree.Size = new System.Drawing.Size(334, 440);
-            this.tvProjectTree.TabIndex = 1;
-            // 
-            // ilTreeviewImages
-            // 
-            this.ilTreeviewImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilTreeviewImages.ImageStream")));
-            this.ilTreeviewImages.TransparentColor = System.Drawing.Color.Transparent;
-            this.ilTreeviewImages.Images.SetKeyName(0, "flowchart.ico");
-            this.ilTreeviewImages.Images.SetKeyName(1, "162.ico");
-            this.ilTreeviewImages.Images.SetKeyName(2, "Closed.ico");
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::OSDevIDE.Properties.Settings.Default, "LblTitleForecolour", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.label1.ForeColor = global::OSDevIDE.Properties.Settings.Default.LblTitleForecolour;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Project Name:";
-            // 
-            // lblProjectName
-            // 
-            this.lblProjectName.AutoSize = true;
-            this.lblProjectName.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::OSDevIDE.Properties.Settings.Default, "LblValueForecolour", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.lblProjectName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::OSDevIDE.Properties.Settings.Default, "CurrentProjectName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.lblProjectName.ForeColor = global::OSDevIDE.Properties.Settings.Default.LblValueForecolour;
-            this.lblProjectName.Location = new System.Drawing.Point(92, 9);
-            this.lblProjectName.Name = "lblProjectName";
-            this.lblProjectName.Size = new System.Drawing.Size(16, 13);
-            this.lblProjectName.TabIndex = 1;
-            this.lblProjectName.Text = global::OSDevIDE.Properties.Settings.Default.CurrentProjectName;
-            // 
-            // lblDevelopmentTime
-            // 
-            this.lblDevelopmentTime.AutoSize = true;
-            this.lblDevelopmentTime.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::OSDevIDE.Properties.Settings.Default, "LblValueForecolour", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.lblDevelopmentTime.ForeColor = global::OSDevIDE.Properties.Settings.Default.LblValueForecolour;
-            this.lblDevelopmentTime.Location = new System.Drawing.Point(117, 32);
-            this.lblDevelopmentTime.Name = "lblDevelopmentTime";
-            this.lblDevelopmentTime.Size = new System.Drawing.Size(16, 13);
-            this.lblDevelopmentTime.TabIndex = 3;
-            this.lblDevelopmentTime.Text = "...";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::OSDevIDE.Properties.Settings.Default, "LblTitleForecolour", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.label4.ForeColor = global::OSDevIDE.Properties.Settings.Default.LblTitleForecolour;
-            this.label4.Location = new System.Drawing.Point(12, 32);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(99, 13);
-            this.label4.TabIndex = 2;
-            this.label4.Text = "Development Time:";
             // 
             // lblIdleTime
             // 
@@ -145,10 +84,85 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Idle Time:";
             // 
+            // lblDevelopmentTime
+            // 
+            this.lblDevelopmentTime.AutoSize = true;
+            this.lblDevelopmentTime.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::OSDevIDE.Properties.Settings.Default, "LblValueForecolour", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.lblDevelopmentTime.ForeColor = global::OSDevIDE.Properties.Settings.Default.LblValueForecolour;
+            this.lblDevelopmentTime.Location = new System.Drawing.Point(117, 32);
+            this.lblDevelopmentTime.Name = "lblDevelopmentTime";
+            this.lblDevelopmentTime.Size = new System.Drawing.Size(16, 13);
+            this.lblDevelopmentTime.TabIndex = 3;
+            this.lblDevelopmentTime.Text = "...";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::OSDevIDE.Properties.Settings.Default, "LblTitleForecolour", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.label4.ForeColor = global::OSDevIDE.Properties.Settings.Default.LblTitleForecolour;
+            this.label4.Location = new System.Drawing.Point(12, 32);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(99, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "Development Time:";
+            // 
+            // lblProjectName
+            // 
+            this.lblProjectName.AutoSize = true;
+            this.lblProjectName.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::OSDevIDE.Properties.Settings.Default, "LblValueForecolour", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.lblProjectName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::OSDevIDE.Properties.Settings.Default, "CurrentProjectName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.lblProjectName.ForeColor = global::OSDevIDE.Properties.Settings.Default.LblValueForecolour;
+            this.lblProjectName.Location = new System.Drawing.Point(92, 9);
+            this.lblProjectName.Name = "lblProjectName";
+            this.lblProjectName.Size = new System.Drawing.Size(16, 13);
+            this.lblProjectName.TabIndex = 1;
+            this.lblProjectName.Text = global::OSDevIDE.Properties.Settings.Default.CurrentProjectName;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.DataBindings.Add(new System.Windows.Forms.Binding("ForeColor", global::OSDevIDE.Properties.Settings.Default, "LblTitleForecolour", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.label1.ForeColor = global::OSDevIDE.Properties.Settings.Default.LblTitleForecolour;
+            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Project Name:";
+            // 
+            // tvProjectTree
+            // 
+            this.tvProjectTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tvProjectTree.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tvProjectTree.ImageIndex = 0;
+            this.tvProjectTree.ImageList = this.ilTreeviewImages;
+            this.tvProjectTree.Location = new System.Drawing.Point(0, 79);
+            this.tvProjectTree.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+            this.tvProjectTree.Name = "tvProjectTree";
+            this.tvProjectTree.SelectedImageIndex = 0;
+            this.tvProjectTree.Size = new System.Drawing.Size(334, 433);
+            this.tvProjectTree.TabIndex = 1;
+            // 
+            // ilTreeviewImages
+            // 
+            this.ilTreeviewImages.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ilTreeviewImages.ImageStream")));
+            this.ilTreeviewImages.TransparentColor = System.Drawing.Color.Transparent;
+            this.ilTreeviewImages.Images.SetKeyName(0, "flowchart.ico");
+            this.ilTreeviewImages.Images.SetKeyName(1, "162.ico");
+            this.ilTreeviewImages.Images.SetKeyName(2, "Closed.ico");
+            this.ilTreeviewImages.Images.SetKeyName(3, "basic1-051_file_binary_code-128.ico");
+            // 
             // timerSeconds
             // 
             this.timerSeconds.Interval = 1000;
             this.timerSeconds.Tick += new System.EventHandler(this.timerSeconds_Tick);
+            // 
+            // fsw
+            // 
+            this.fsw.EnableRaisingEvents = true;
+            this.fsw.IncludeSubdirectories = true;
+            this.fsw.SynchronizingObject = this;
             // 
             // frmProject
             // 
@@ -163,6 +177,7 @@
             this.Text = "Project";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fsw)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -179,5 +194,6 @@
         private System.Windows.Forms.Label lblIdleTime;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Timer timerSeconds;
+        private System.IO.FileSystemWatcher fsw;
     }
 }

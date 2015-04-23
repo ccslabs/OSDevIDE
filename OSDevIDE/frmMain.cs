@@ -1,4 +1,5 @@
 ﻿using OSDevIDE.Classes.Core;
+using OSDevIDE.Classes.DiskIO.Writing;
 using OSDevIDE.Classes.Enumerations;
 using OSDevIDE.Classes.Project;
 using OSDevIDE.Forms.Dialogues;
@@ -291,9 +292,8 @@ namespace OSDevIDE
             DialogResult dr = createNewProjectForm.ShowDialog();
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
-                // Load the Project File
-                // Populate ProjectClass
-                // Create the Default folders
+                frmMainLog("Creating Project Directories");
+                Write.CreateDefaultFolders(); 
                 // Populate the Project Window
                 // Commit To GitHub <Free> or <PaidFor> User decides.
 

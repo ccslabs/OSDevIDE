@@ -53,6 +53,7 @@ namespace OSDevIDE.Classes.DiskIO.Writing
             // Only write this out if the DefaultProjectFolder Actually contains something !
           
                 path = Path.Combine(DefaultProjectFolder, projectClass.ProjectName);
+                Properties.Settings.Default.CurrentProjectPath = path;
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -101,5 +102,27 @@ namespace OSDevIDE.Classes.DiskIO.Writing
             return false;
         }
 
+
+        internal static void CreateDefaultFolders()
+        {
+            string path = Path.Combine(Properties.Settings.Default.CurrentProjectPath,Properties.Settings.Default.CurrentProjectName); // Get the Full Project Path
+            string cwd = Directory.GetCurrentDirectory(); // Get the CWD
+            Directory.SetCurrentDirectory(path); // Set CWD to full Project Path
+            // Create The directories
+            Directory.CreateDirectory("Bootloader");
+            Directory.CreateDirectory("Kernel");
+            Directory.CreateDirectory("Kernel\\Drivers");
+            Directory.CreateDirectory("Kernel\\FileSystem");
+            Directory.CreateDirectory("Kernel\\Memory");
+            Directory.CreateDirectory("Kernel\\StdLibs");
+            Directory.CreateDirectory("Documentation");
+            Directory.CreateDirectory("Documentation\\License");
+            Directory.CreateDirectory("Documentation\\API");
+            Directory.CreateDirectory("Documentation\\ChangeLog");
+            Directory.CreateDirectory("Output");
+            Directory.CreateDirectory("Output\\Bin");
+            Directory.CreateDirectory("Output\\ISO");
+            Directory.SetCurrentDirectory(cwd); // Reset the CWD
+        }
     }
 }

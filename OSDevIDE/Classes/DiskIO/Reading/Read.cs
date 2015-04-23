@@ -51,5 +51,12 @@ namespace OSDevIDE.Classes.DiskIO.Reading
                 return false;
             }
         }
+
+
+
+        internal static string[] GetDirectories(string path)
+        {
+            return Directory.GetDirectories(path);
+        }
     }
 }
