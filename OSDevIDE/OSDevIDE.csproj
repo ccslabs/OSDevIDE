@@ -171,6 +171,12 @@
   <ItemGroup>
     <Content Include="license.txt" />
     <Content Include="osdi.ico" />
+    <Content Include="Templates\Bootloaders\Bootloader.asm" />
+    <Content Include="Templates\Bootloaders\BootSector2-Floppy.asm" />
+    <Content Include="Templates\Filesystem\FloppyDriveBPB-FAT12.asm" />
+    <Content Include="Templates\Filesystem\ResetFloppyDisk.asm" />
+    <Content Include="Templates\Filesystem\SectorTwoPoint-FloppyDisk.asm" />
+    <Content Include="Templates\Utilities\PrintString.asm" />
     <None Include="Resources\plus-sign.png" />
     <None Include="Resources\bootloader.png" />
     <None Include="Resources\lilo.png" />

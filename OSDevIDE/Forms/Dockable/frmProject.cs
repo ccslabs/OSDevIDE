@@ -1,5 +1,6 @@
 ﻿using OSDevIDE.Classes.Core;
 using OSDevIDE.Classes.DiskIO.Reading;
+using OSDevIDE.Forms.Dialogues;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -194,7 +195,30 @@ namespace OSDevIDE.Forms.Dockable
         /// <param name="e"></param>
         private void stageBootloaderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            // Load Bootloader Wizard
+            frmBootloaderWizard bootWizardForm = new frmBootloaderWizard();
+            DialogResult dr = bootWizardForm.ShowDialog();
+            if(dr == System.Windows.Forms.DialogResult.OK)
+            {
+               if(LogEvent != null) LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Success, "User successfully completed the Boot-loader wizard.");
+                // Not difficult considering how little there is just now for them to do!
+                Read read = new Read();
+                string TwoStageBootloaderTemplate = read.LoadTwoStageBootLoaderTemplate();
+                if(TwoStageBootloaderTemplate == null)
+                {
+                    if (LogEvent != null) LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Failure, "Failed to read the Two Stage Boot Loader Template");
+                }
+                else
+                {
+                    if (LogEvent != null) LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Success, "Successfully read the Two Stage Boot Loader Template");
+                    // Insert User's Stage Strings - if Any.
+                    // Save the Bootloader to the correct folder
+                }                
+            }
+            else
+            {
+                if (LogEvent != null) LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Warning, "User Canceled The Insertion of a Boot-loader.");
+            }
         }
     }
 }

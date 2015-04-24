@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace OSDevIDE.Classes.DiskIO.Reading
 {
@@ -57,6 +58,55 @@ namespace OSDevIDE.Classes.DiskIO.Reading
         internal static string[] GetDirectories(string path)
         {
             return Directory.GetDirectories(path);
+        }
+
+        /// <summary>
+        /// Loads the bootloader and returns the contents as a string.
+        /// </summary>
+        /// <returns>
+        /// string: Containing the asm template for the bootloader
+        /// </returns>
+        internal string LoadTwoStageBootLoaderTemplate()
+        {
+            string BootLoaderTemplate = "";
+            string templatePath = "";
+            templatePath = Path.Combine(Application.ExecutablePath, "\\Templates\\Bootloaders\\TwoStageBootloader.asm");
+            BootLoaderTemplate = LoadFileAsString(templatePath);
+
+            return BootLoaderTemplate;
+        }
+
+       /// <summary>
+        /// Reads an entire file into a string
+        /// </summary>
+        /// <param name="fName">
+        /// string: The full path to the file that is to be read
+        /// </param>
+        /// <returns>
+        /// String: The contents of the file
+        /// </returns>
+        private string LoadFileAsString(string fName)
+        {
+            FileStream fs = null;
+            StreamReader sr = null;
+            string fileString = "";
+            try
+            {
+                fs = new FileStream(fName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                sr = new StreamReader(fs, Encoding.UTF8);
+
+                fileString = sr.ReadToEnd();
+
+                sr.Close();
+                fs.Close();
+                return fileString;
+            }
+            catch (Exception)
+            {
+                if (sr != null) sr.Close();
+                if (fs != null) fs.Close();
+                return null;
+            }
         }
     }
 }
