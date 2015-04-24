@@ -36,7 +36,7 @@ namespace OSDevIDE
         public frmMain()
         {
             InitializeComponent();
-         
+
 
             // SETUP Some Debugging Properties
 #if DEBUG
@@ -193,6 +193,8 @@ namespace OSDevIDE
             {
                 projectToolStripMenuItem.Checked = true;
                 projectForm.Disposed += projectForm_Disposed;
+                projectForm.LogEvent += projectForm_LogEvent;
+                projectForm.OpenDocumentEvent += projectForm_OpenDocumentEvent;
                 return projectForm;
             }
             else if (persistString == typeof(frmOutput).ToString())
@@ -211,6 +213,18 @@ namespace OSDevIDE
             {
                 return null;
             }
+        }
+
+        void projectForm_OpenDocumentEvent(LoggingEnumerations.LogEventTypes EventType, string path)
+        {
+            frmDocument documentForm = new frmDocument(path);           
+            documentForm.Show(dockPanel, DockState.Document);
+        }
+
+       
+        void projectForm_LogEvent(LoggingEnumerations.LogEventTypes EventType, string status)
+        {
+            frmMainLog(status, EventType);
         }
 
         #region Dockable Forms Disposing
@@ -293,7 +307,7 @@ namespace OSDevIDE
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
                 frmMainLog("Creating Project Directories");
-                Write.CreateDefaultFolders(); 
+                Write.CreateDefaultFolders();
                 // Populate the Project Window
                 // Commit To GitHub <Free> or <PaidFor> User decides.
 
@@ -310,7 +324,7 @@ namespace OSDevIDE
         #endregion
 
 
-     
-      
+
+
     }
 }

@@ -17,6 +17,11 @@ namespace OSDevIDE.Forms.Dockable
     public partial class frmProject : DockContent
     {
 
+        internal delegate void LogEventHandler(OSDevIDE.Classes.Enumerations.LoggingEnumerations.LogEventTypes EventType, string status);
+        internal event LogEventHandler LogEvent;
+        internal delegate void OpenDocumentEventHandler(OSDevIDE.Classes.Enumerations.LoggingEnumerations.LogEventTypes EventType, string filePath);
+        internal event OpenDocumentEventHandler OpenDocumentEvent;
+
         delegate void SetLabelTextCallback(Label lbl, string text);
         CoreUserIdle cui = new CoreUserIdle(true); // Start monitoring User Activity
 
@@ -24,34 +29,35 @@ namespace OSDevIDE.Forms.Dockable
         {
             InitializeComponent();
             Properties.Settings.Default.PropertyChanged += Default_PropertyChanged;
-           
+
 
         }
 
         void fsw_Renamed(object sender, System.IO.RenamedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (LogEvent != null) LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information, "File Renamed from " + e.OldFullPath + " to " + e.FullPath);
         }
 
         void fsw_Error(object sender, System.IO.ErrorEventArgs e)
         {
-            throw new NotImplementedException();
+            if (LogEvent != null) LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information, "File Error " + e.GetException().Message);
         }
 
         void fsw_Created(object sender, System.IO.FileSystemEventArgs e)
         {
-            throw new NotImplementedException();
+            if (LogEvent != null) LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information, "File Created " + e.FullPath);
         }
 
         void fsw_Changed(object sender, System.IO.FileSystemEventArgs e)
         {
-            throw new NotImplementedException();
+            if (LogEvent != null) LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information, "File Changed " + e.FullPath);
         }
 
         void Default_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "CurrentProjectName")
             {
+                if (LogEvent != null) LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information, "Current Project Name " + Properties.Settings.Default.CurrentProjectName);
                 SetLabelText(lblProjectName, Properties.Settings.Default.CurrentProjectName);
                 timerSeconds.Enabled = true;
                 timerSeconds.Interval = 1000;
@@ -59,12 +65,12 @@ namespace OSDevIDE.Forms.Dockable
                 fsw.Path = Path.Combine(Properties.Settings.Default.CurrentProjectPath, Properties.Settings.Default.CurrentProjectName);
 
                 AddNodes();
-
             }
         }
 
         private void AddNodes()
         {
+            if (LogEvent != null) LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information, "Adding Nodes ");
             ListDirectory(tvProjectTree, Path.Combine(Properties.Settings.Default.ApplicationFolderPath, Properties.Settings.Default.CurrentProjectName));
             tvProjectTree.ExpandAll();
             fsw.Changed += fsw_Changed;
@@ -74,7 +80,7 @@ namespace OSDevIDE.Forms.Dockable
         }
 
 
-        private static void ListDirectory(TreeView treeView, string path)
+        private void ListDirectory(TreeView treeView, string path)
         {
             treeView.Nodes.Clear();
 
@@ -93,6 +99,7 @@ namespace OSDevIDE.Forms.Dockable
                     childDirectoryNode.ImageIndex = 2;
                     childDirectoryNode.SelectedImageIndex = 1;
                     currentNode.Nodes.Add(childDirectoryNode);
+
                     stack.Push(childDirectoryNode);
                 }
                 foreach (var file in directoryInfo.GetFiles())
@@ -100,6 +107,8 @@ namespace OSDevIDE.Forms.Dockable
                     TreeNode tn = new TreeNode(file.Name);
                     tn.ImageIndex = 3;
                     tn.SelectedImageIndex = 3;
+                    tn.Tag = "file";
+
                     currentNode.Nodes.Add(tn);
                 }
             }
@@ -134,6 +143,47 @@ namespace OSDevIDE.Forms.Dockable
             TimeSpan iTime = TimeSpan.FromSeconds(cui.IdleSeconds);
             SetLabelText(lblIdleTime, iTime.ToString());
 
+        }
+
+        private void tvProjectTree_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+
+            try
+            {
+                if ((string)e.Node.Tag == "file")
+                {
+
+                    // display the file if left click!
+                    if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                    {
+
+                        // Liberator\Liberator.osp
+                        string fullPath = Path.Combine(Properties.Settings.Default.ApplicationFolderPath, e.Node.FullPath);
+                        if (OpenDocumentEvent != null) OpenDocumentEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information, fullPath);
+                    }
+                    else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                    {
+
+                        // show the file's context menu
+                    }
+
+                }
+            }
+            catch (Exception) // Probably e.Node.Tag contains a DirectoryInfo
+            {
+                // expand the directory if it is not expanded and if left click
+
+                if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+
+                    e.Node.Expand();
+                }
+                else if (e.Button == System.Windows.Forms.MouseButtons.Right)
+                {
+
+                    // Show the Folder's Context Menu - Dependent upon which folder has been clicked on.
+                }
+            }
         }
     }
 }

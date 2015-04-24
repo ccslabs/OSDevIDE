@@ -85,6 +85,12 @@
     <Compile Include="Forms\Dialogues\frmCreateNewProject.Designer.cs">
       <DependentUpon>frmCreateNewProject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Dockable\frmDocument.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dockable\frmDocument.Designer.cs">
+      <DependentUpon>frmDocument.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Dockable\frmOutput.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +119,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\Dialogues\frmCreateNewProject.resx">
       <DependentUpon>frmCreateNewProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Dockable\frmDocument.resx">
+      <DependentUpon>frmDocument.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Dockable\frmOutput.resx">
       <DependentUpon>frmOutput.cs</DependentUpon>

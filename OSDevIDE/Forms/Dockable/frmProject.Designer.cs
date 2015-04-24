@@ -143,6 +143,7 @@
             this.tvProjectTree.SelectedImageIndex = 0;
             this.tvProjectTree.Size = new System.Drawing.Size(334, 433);
             this.tvProjectTree.TabIndex = 1;
+            this.tvProjectTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvProjectTree_NodeMouseClick);
             // 
             // ilTreeviewImages
             // 
