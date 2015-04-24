@@ -11,7 +11,8 @@ We will list here the features that are being worked on by the core team. Those 
 1. Development of the Logging Window (Done)
 2. First Run - Set up Project Folders and the IDE Application Folders  (Done)
 3. Development of the Start Window - In Progress
-4. Development of the Project Window 
+4. Development of the Project Window - In Progress
+5. Adding Bootloader Templates - In Progress
 
 
 ####Useful Links
