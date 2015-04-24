@@ -215,6 +215,8 @@ namespace OSDevIDE
             }
         }
 
+
+        //TODO: If documents are open then save the list to the project file for re-opening on re-starting the program
         void projectForm_OpenDocumentEvent(LoggingEnumerations.LogEventTypes EventType, string path)
         {
             frmDocument documentForm = new frmDocument(path);           

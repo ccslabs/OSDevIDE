@@ -156,9 +156,10 @@ namespace OSDevIDE.Forms.Dockable
                     // display the file if left click!
                     if (e.Button == System.Windows.Forms.MouseButtons.Left)
                     {
-
+                        
                         // Liberator\Liberator.osp
                         string fullPath = Path.Combine(Properties.Settings.Default.ApplicationFolderPath, e.Node.FullPath);
+                        if (LogEvent != null) LogEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information, "Opening File: " + fullPath);
                         if (OpenDocumentEvent != null) OpenDocumentEvent(Classes.Enumerations.LoggingEnumerations.LogEventTypes.Information, fullPath);
                     }
                     else if (e.Button == System.Windows.Forms.MouseButtons.Right)
@@ -184,6 +185,16 @@ namespace OSDevIDE.Forms.Dockable
                     // Show the Folder's Context Menu - Dependent upon which folder has been clicked on.
                 }
             }
+        }
+
+        /// <summary>
+        /// Insert's the basic template for the two stage bootloader - via a wizard
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void stageBootloaderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

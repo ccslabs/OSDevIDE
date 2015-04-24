@@ -9,18 +9,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
+using FastColoredTextBoxNS;
 
 namespace OSDevIDE.Forms.Dockable
 {
     public partial class frmDocument : DockContent
     {
 
+        
+
         public frmDocument(string DocumentPath)
         {
             FileInfo finfo = new FileInfo(DocumentPath);
             InitializeComponent();
             this.Text = finfo.Name;
-
+           
             fctbDocument.LineInserted += fctbDocument_LineInserted;
             fctbDocument.LineRemoved += fctbDocument_LineRemoved;
             fctbDocument.SelectionChanged += fctbDocument_SelectionChanged;
@@ -30,7 +33,7 @@ namespace OSDevIDE.Forms.Dockable
             fctbDocument.TextChanging += fctbDocument_TextChanging;
             fctbDocument.UndoRedoStateChanged += fctbDocument_UndoRedoStateChanged;
             fctbDocument.VisualMarkerClick += fctbDocument_VisualMarkerClick;
-            fctbDocument.OpenBindingFile(DocumentPath, Encoding.UTF8);
+            fctbDocument.InsertText(File.ReadAllText(DocumentPath,Encoding.UTF8));
         }
 
         void fctbDocument_VisualMarkerClick(object sender, FastColoredTextBoxNS.VisualMarkerEventArgs e)

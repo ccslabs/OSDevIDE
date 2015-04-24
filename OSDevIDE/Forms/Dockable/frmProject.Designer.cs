@@ -41,8 +41,14 @@
             this.ilTreeviewImages = new System.Windows.Forms.ImageList(this.components);
             this.timerSeconds = new System.Windows.Forms.Timer(this.components);
             this.fsw = new System.IO.FileSystemWatcher();
+            this.cmsBootLoaderFolderRightClick = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stageBootloaderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.grub2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.liloToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsw)).BeginInit();
+            this.cmsBootLoaderFolderRightClick.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -165,6 +171,48 @@
             this.fsw.IncludeSubdirectories = true;
             this.fsw.SynchronizingObject = this;
             // 
+            // cmsBootLoaderFolderRightClick
+            // 
+            this.cmsBootLoaderFolderRightClick.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.insertToolStripMenuItem});
+            this.cmsBootLoaderFolderRightClick.Name = "cmsBootLoaderFolderRightClick";
+            this.cmsBootLoaderFolderRightClick.Size = new System.Drawing.Size(104, 26);
+            // 
+            // insertToolStripMenuItem
+            // 
+            this.insertToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.stageBootloaderToolStripMenuItem,
+            this.grub2ToolStripMenuItem,
+            this.liloToolStripMenuItem});
+            this.insertToolStripMenuItem.Image = global::OSDevIDE.Properties.Resources.plus_sign;
+            this.insertToolStripMenuItem.Name = "insertToolStripMenuItem";
+            this.insertToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.insertToolStripMenuItem.Text = "Insert";
+            // 
+            // stageBootloaderToolStripMenuItem
+            // 
+            this.stageBootloaderToolStripMenuItem.Image = global::OSDevIDE.Properties.Resources.bootloader;
+            this.stageBootloaderToolStripMenuItem.Name = "stageBootloaderToolStripMenuItem";
+            this.stageBootloaderToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.stageBootloaderToolStripMenuItem.Text = "2 Stage Bootloader";
+            this.stageBootloaderToolStripMenuItem.Click += new System.EventHandler(this.stageBootloaderToolStripMenuItem_Click);
+            // 
+            // grub2ToolStripMenuItem
+            // 
+            this.grub2ToolStripMenuItem.Enabled = false;
+            this.grub2ToolStripMenuItem.Image = global::OSDevIDE.Properties.Resources.GRUB2_logo;
+            this.grub2ToolStripMenuItem.Name = "grub2ToolStripMenuItem";
+            this.grub2ToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.grub2ToolStripMenuItem.Text = "Grub2";
+            // 
+            // liloToolStripMenuItem
+            // 
+            this.liloToolStripMenuItem.Enabled = false;
+            this.liloToolStripMenuItem.Image = global::OSDevIDE.Properties.Resources.lilo;
+            this.liloToolStripMenuItem.Name = "liloToolStripMenuItem";
+            this.liloToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.liloToolStripMenuItem.Text = "Lilo";
+            // 
             // frmProject
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -179,6 +227,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fsw)).EndInit();
+            this.cmsBootLoaderFolderRightClick.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -196,5 +245,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Timer timerSeconds;
         private System.IO.FileSystemWatcher fsw;
+        private System.Windows.Forms.ContextMenuStrip cmsBootLoaderFolderRightClick;
+        private System.Windows.Forms.ToolStripMenuItem insertToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stageBootloaderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem grub2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem liloToolStripMenuItem;
     }
 }
